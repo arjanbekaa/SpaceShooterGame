@@ -29,7 +29,9 @@ public class Player : MonoBehaviour
     private GameObject _shieldGO;
     private SpriteRenderer _shiedlSpriteRenderer;
 
+    [SerializeField]
     private float _speed = 4f;
+    private float _speedHelper;
     private float _speedMultiplayer = 2f;
     private int _life = 3;
     private float _fireRate = 0.15f;
@@ -44,6 +46,8 @@ public class Player : MonoBehaviour
     private UIManager _uIManager;
     private int _ran;
 
+    private float _canSpeed = -5;
+    private float _leftShiftSpeedCoolDown = 5;
     private SpawnManager _spawnManager;
     void Start()
     {
@@ -54,6 +58,8 @@ public class Player : MonoBehaviour
         _shiedlSpriteRenderer = _shieldGO.GetComponent<SpriteRenderer>();
         if (_spawnManager == null) Debug.LogError("Spawn Manager is null");
         if(_uIManager == null) Debug.LogError("The UIManager is null");
+
+        _speedHelper = _speed;
     }
 
     void Update()
@@ -67,6 +73,18 @@ public class Player : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        if (Input.GetKey(KeyCode.LeftShift) && _canSpeed < Time.time)
+        {
+            _canSpeed = Time.time + 1;
+            _speed += 1;
+            _uIManager.UpdateSpeedCDtxt(_speed - _speedHelper);
+        }
+        if (_speed - _speedHelper >= _leftShiftSpeedCoolDown)
+        {
+            _speed = _speedHelper;
+            _canSpeed = Time.time + _leftShiftSpeedCoolDown;
+        }
+
         this.transform.Translate(new Vector3(horizontal, vertical, 0) * _speed * Time.deltaTime);
     }
     public void playerBounds()
@@ -209,5 +227,4 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-
 }

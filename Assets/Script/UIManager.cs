@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+
+    [SerializeField]
+    private Text _speedCoolDown;
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
@@ -22,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image _lifeDisplay;
     private GameManager _gameManager;
+
     void Start()
     {
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -48,6 +53,21 @@ public class UIManager : MonoBehaviour
         {
             GameOverAction();
         }
+    }
+    public void UpdateSpeedCDtxt(float a)
+    {
+        _speedCoolDown.text = "" + (int)a;
+        if((int)a == 5)
+        {
+            _speedCoolDown.text = "Wait...";
+            StartCoroutine(waitTxt());
+        }
+    }
+
+    IEnumerator waitTxt()
+    {
+        yield return new WaitForSeconds(5);
+        _speedCoolDown.text = "GO";
     }
 
     public void GameOverAction()
