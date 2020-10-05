@@ -25,6 +25,9 @@ public class Player : MonoBehaviour
     private GameObject _shootAudio;
     [SerializeField]
     private GameObject _explosionAudio;
+    [SerializeField]
+    private GameObject _shieldGO;
+    private SpriteRenderer _shiedlSpriteRenderer;
 
     private float _speed = 4f;
     private float _speedMultiplayer = 2f;
@@ -36,6 +39,7 @@ public class Player : MonoBehaviour
     private int _maxBullet = 6;
     public bool _tripleShotActive { get; set; }
     public bool _speedBoostActive { get; set; }
+    private int _shieldLifes = 3;
     private bool _shieldActive = false;
     private UIManager _uIManager;
     private int _ran;
@@ -47,6 +51,7 @@ public class Player : MonoBehaviour
         _tripleShotActive = false;
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _shiedlSpriteRenderer = _shieldGO.GetComponent<SpriteRenderer>();
         if (_spawnManager == null) Debug.LogError("Spawn Manager is null");
         if(_uIManager == null) Debug.LogError("The UIManager is null");
     }
@@ -124,8 +129,8 @@ public class Player : MonoBehaviour
     {
         if (_shieldActive)
         {
-            _shieldActive = false;
-            _shield.SetActive(false);
+            _shieldLifes--;
+            ShieldColor();
             return;
         }
 
@@ -175,12 +180,34 @@ public class Player : MonoBehaviour
 
     public void ShieldUp()
     {
-        _shield.SetActive(true);
+        _shieldLifes = 3;
         _shieldActive = true;
+        _shield.SetActive(_shieldActive);
+        ShieldColor();
     }
     public void AddScore(int points)
     {
         _score += points;
         _uIManager.UpdateScore(_score);
     }
+    public void ShieldColor()
+    {
+        switch (_shieldLifes)
+        {
+            case 3:
+                _shiedlSpriteRenderer.color = Color.white;
+                break;
+            case 2:
+                _shiedlSpriteRenderer.color = Color.blue;
+                break;
+            case 1:
+                _shiedlSpriteRenderer.color = Color.red;
+                break;
+            case 0:
+                _shieldActive = false;
+                _shield.SetActive(_shieldActive);
+                break;
+        }
+    }
+
 }

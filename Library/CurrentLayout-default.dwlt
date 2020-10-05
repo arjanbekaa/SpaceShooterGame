@@ -19,9 +19,9 @@ MonoBehaviour:
     width: 1920
     height: 1007
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 592}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 342}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 19
+  controlID: 55
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -123,10 +123,10 @@ MonoBehaviour:
     y: 0
     width: 1252
     height: 957
-  m_MinSize: {x: 201, y: 563}
-  m_MaxSize: {x: 4001, y: 12063}
+  m_MinSize: {x: 201, y: 542}
+  m_MaxSize: {x: 4001, y: 12042}
   vertical: 1
-  controlID: 59
+  controlID: 95
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -149,7 +149,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 1007
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 592}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -202,10 +202,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 957
-  m_MinSize: {x: 709, y: 563}
-  m_MaxSize: {x: 18004, y: 14042}
+  m_MinSize: {x: 708, y: 542}
+  m_MaxSize: {x: 18003, y: 14021}
   vertical: 0
-  controlID: 58
+  controlID: 75
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -277,10 +277,10 @@ MonoBehaviour:
     y: 0
     width: 391
     height: 957
-  m_MinSize: {x: 232, y: 492}
-  m_MaxSize: {x: 10002, y: 14042}
+  m_MinSize: {x: 232, y: 471}
+  m_MaxSize: {x: 10002, y: 14021}
   vertical: 1
-  controlID: 164
+  controlID: 76
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -300,8 +300,8 @@ MonoBehaviour:
     y: 0
     width: 277
     height: 957
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -326,8 +326,8 @@ MonoBehaviour:
     y: 0
     width: 391
     height: 562
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 24}
   m_Panes:
   - {fileID: 24}
@@ -623,7 +623,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -79258
+  m_LastSelectedObjectID: -13368
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -728,21 +728,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/GameDevHQ
+    - Assets/Prefab
     m_Globs: []
   m_ViewMode: 0
   m_StartGridSize: 64
-  m_LastFolders:
-  - Assets/Materials
+  m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: E:\Unity\SpaceShooter
+  m_LastProjectPath: C:\Users\Arjan\Desktop\SpaceShooterGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: c83c0000
     m_LastClickedID: 15560
-    m_ExpandedIDs: 00000000e23800009e3e0000a03e0000a23e0000a43e0000a63e0000a83e0000aa3e0000ac3e0000ae3e0000b03e0000b23e0000
+    m_ExpandedIDs: 00000000fa3c0000fc3c0000fe3c0000003d0000023d0000043d0000063d0000083d00000a3d00000c3d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -767,24 +766,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 0}
+    scrollPos: {x: 0, y: 103}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000e23800009e3e0000a03e0000a23e0000a43e0000a63e0000aa3e0000ac3e0000b03e0000b23e0000
+    m_ExpandedIDs: ffffffff00000000fa3c0000fc3c0000fe3c0000003d0000023d0000043d0000063d0000083d00000a3d00000c3d00002c3d00002e3d0000303d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: EnemyBullet
+      m_OriginalName: EnemyBullet
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 16808
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 14}
     m_SearchString: 
@@ -955,7 +954,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: -0.057763994, y: -0.39204147, z: -33.07029}
     speed: 2
-    m_Value: {x: -0.9336027, y: -0.21026364, z: -33.0468}
+    m_Value: {x: -0.057763994, y: -0.39204147, z: -33.07029}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1008,7 +1007,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 6.2317195
     speed: 2
-    m_Value: 6.5253606
+    m_Value: 6.2317195
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1062,9 +1061,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 24f1ffff
-      m_LastClickedID: -3804
-      m_ExpandedIDs: 24f1ffffe2faffff
+      m_SelectedIDs: a8410000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 8ed1ffff7ee5ffff98f3ffff16f4ffff34fbffff7c420000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
