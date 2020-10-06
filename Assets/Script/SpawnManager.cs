@@ -44,8 +44,8 @@ public class SpawnManager : MonoBehaviour
     {
         while(_stopSpawn == false)
         {
-            yield return new WaitForSeconds(Random.Range(5, 10));
-            var instantiatedPowerUp = Instantiate(_powerups[Random.Range(0,3)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(5,10));
+            var instantiatedPowerUp = Instantiate(_powerups[Random.Range(0,4)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
            instantiatedPowerUp.transform.parent = _powerUpContainer.transform;
         }
     }

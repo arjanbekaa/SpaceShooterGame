@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     private float _relodeWepon = 0.3f;
     private int _bulletAmount = 0;
     private int _maxBullet = 6;
+    private int _maxBulletInventory = 15;
+    private int _countBulletsShoot = 0;
     public bool _tripleShotActive { get; set; }
     public bool _speedBoostActive { get; set; }
     private int _shieldLifes = 3;
@@ -66,7 +68,14 @@ public class Player : MonoBehaviour
     {
         playerMovement();
         playerBounds();
-        shoot();
+        if (_countBulletsShoot >= 15)
+        {
+        }
+        else
+        {
+            shoot();
+            _uIManager.UpdateAmmoTxt(_maxBulletInventory - _countBulletsShoot);
+        }
     }
 
     public void playerMovement()
@@ -113,6 +122,7 @@ public class Player : MonoBehaviour
                     var instantiatedBullet = Instantiate(_bullet, this.transform.position + new Vector3(0, 1.5f, 0), Quaternion.identity);
                     instantiatedBullet.transform.parent = (_bulletContainer.transform);
                     _shootAudio.GetComponent<AudioSource>().Play();
+                    _countBulletsShoot++;
                 }
                 else
                 {
@@ -126,6 +136,7 @@ public class Player : MonoBehaviour
                 {
                     _canFire = Time.time + _fireRate;
                     _bulletAmount += 3;
+                    _countBulletsShoot += 3;
                     var instantiatedBullet = Instantiate(_tripleShot, this.transform.position + new Vector3(-8.46f, 0,0), Quaternion.identity);
                     instantiatedBullet.transform.parent = (_bulletContainer.transform);
                     _shootAudio.GetComponent<AudioSource>().Play();
@@ -207,6 +218,12 @@ public class Player : MonoBehaviour
     {
         _score += points;
         _uIManager.UpdateScore(_score);
+    }
+    public void AmmoCollected()
+    {
+        _maxBulletInventory = 15;
+        _uIManager.UpdateAmmoTxt(_maxBulletInventory);
+        _countBulletsShoot = 0;
     }
     public void ShieldColor()
     {

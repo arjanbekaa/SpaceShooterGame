@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _speedCoolDown;
     [SerializeField]
+    private Text _ammoTxt;
+    [SerializeField]
     private Text _scoreText;
     [SerializeField]
     private Text _missedEnemies;
@@ -61,6 +63,19 @@ public class UIManager : MonoBehaviour
         {
             _speedCoolDown.text = "Wait...";
             StartCoroutine(waitTxt());
+        }
+    }
+    public void UpdateAmmoTxt(int ammo)
+    {
+        if(ammo < 6)
+        {
+            _ammoTxt.color = Color.red;
+            _ammoTxt.text = "Ammo: " + ammo;
+        }
+        else
+        {
+            _ammoTxt.color = Color.white;
+            _ammoTxt.text = "Ammo: " + ammo;
         }
     }
 
