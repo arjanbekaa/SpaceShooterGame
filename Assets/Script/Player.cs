@@ -225,6 +225,15 @@ public class Player : MonoBehaviour
         _uIManager.UpdateAmmoTxt(_maxBulletInventory);
         _countBulletsShoot = 0;
     }
+    public void LifeCollactable()
+    {
+        if (_life == 3) return;
+        else
+        {
+            _life++;
+            _uIManager.UpdateLives(_life);
+        }
+    }
     public void ShieldColor()
     {
         switch (_shieldLifes)
