@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explositon: {fileID: 7914364581662490725, guid: 15cced24efa41a94d9b4dfde72dd77d6,
     type: 3}
+  _superBullet: {fileID: 5531693205039993585, guid: 5b273fc116ab3a346a376f8cece0aa76,
+    type: 3}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _enemyBullet: {fileID: 1224648693722771932, guid: ad3b5911031a4554abff08cb8bb08242,
     type: 3}

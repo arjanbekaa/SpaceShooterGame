@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _explositon;
     [SerializeField]
+    private GameObject _superBullet;
+    [SerializeField]
     private AudioClip _explosionClip;
     [SerializeField]
     private GameObject _enemyBullet;
@@ -34,7 +36,7 @@ public class Enemy : MonoBehaviour
         {
             _fireRate = Random.Range(3.0f, 7.0f);
             _canFire = Time.time + _fireRate;
-            Instantiate(_enemyBullet, this.transform.position + new Vector3(-0.22f, 0, 0), Quaternion.identity);
+            Instantiate(_enemyBullet, this.transform.position, Quaternion.identity);
         }
     }
     public void CalculateMovement()
@@ -66,10 +68,20 @@ public class Enemy : MonoBehaviour
             _player.AddScore(Random.Range(5, 10));
             _spawnManager.AddEnemySpeed();
             _audioSource.Play();
+
+            if (_player.GetSuperBulletOn())
+            {
+                StartCoroutine(SpawnSuperBullet());
+            }
+
             Destroy(other.gameObject);
             Destroy(this.gameObject, 0.19f);
             Destroy(explosion, 2.40f);
         }
-        
+    }
+    IEnumerator SpawnSuperBullet()
+    {
+        yield return new WaitForSeconds(0.18f);
+        Instantiate(_superBullet, this.transform.position, Quaternion.identity);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -22,14 +23,13 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        StartCoroutine(PowerUpSpawnRoutine());
     }
     public void StartSpawning()
     {
         _stopSpawn = false;
         StartCoroutine(EnemySpawnRoutine());
-        StartCoroutine(PowerUpSpawnRoutine());
     }
-
     IEnumerator EnemySpawnRoutine()
     {
         yield return new WaitForSeconds(2.0f);
@@ -42,12 +42,25 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator PowerUpSpawnRoutine()
     {
-        while(_stopSpawn == false)
+        while (true)
         {
-            yield return new WaitForSeconds(Random.Range(5,10));
-            var instantiatedPowerUp = Instantiate(_powerups[Random.Range(0,5)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
-           instantiatedPowerUp.transform.parent = _powerUpContainer.transform;
+            int ran = Random.Range(0, 110);
+            yield return new WaitForSeconds(Random.Range(4,8));
+            var instantiatedPowerUp = Instantiate(_powerups[rarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
+            instantiatedPowerUp.transform.parent = _powerUpContainer.transform;
         }
+    }
+
+    public int rarity(int a)
+    {
+        int result = 0;
+        if (a < 20) result = 0;
+        else if (a < 40 && a > 20) result = 1;
+        else if (a < 60 && a > 40) result = 2;
+        else if (a < 80 && a > 60) result = 3;
+        else if (a < 100 && a > 80) result = 4;
+        else result = 5;
+        return result;
     }
     public void GameOver()
     {

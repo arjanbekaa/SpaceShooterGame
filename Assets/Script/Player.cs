@@ -46,14 +46,13 @@ public class Player : MonoBehaviour
     private int _shieldLifes = 3;
     private bool _shieldActive = false;
     private UIManager _uIManager;
-    private int _ran;
+    private bool _isSuperBulletOn = false;
 
     private float _canSpeed = -5;
     private float _leftShiftSpeedCoolDown = 5;
     private SpawnManager _spawnManager;
     void Start()
     {
-        _ran = Random.Range(1, 3);
         _tripleShotActive = false;
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
@@ -156,6 +155,7 @@ public class Player : MonoBehaviour
     public float getSpeed() { return _speed; }
     public void Damage()
     {
+        var ran = Random.Range(1, 3);
         if (_shieldActive)
         {
             _shieldLifes--;
@@ -168,7 +168,7 @@ public class Player : MonoBehaviour
         _uIManager.UpdateLives(_life);
         if (_life == 2)
         {
-            if (_ran == 1) _leftEngine.SetActive(true);
+            if (ran == 1) _leftEngine.SetActive(true);
             else _rightEngine.SetActive(true);
         }
         else if (_life == 1)
@@ -227,9 +227,20 @@ public class Player : MonoBehaviour
     }
     public void LifeCollactable()
     {
+        var ran = Random.Range(1, 3);
         if (_life == 3) return;
         else
         {
+            if (_life == 2)
+            {
+                if (_leftEngine.activeSelf)_leftEngine.SetActive(false);
+                else _rightEngine.SetActive(false);
+            }
+            else if (_life == 1)
+            {
+                if (ran == 1) _rightEngine.SetActive(false);
+                else _leftEngine.SetActive(false);
+            }
             _life++;
             _uIManager.UpdateLives(_life);
         }
@@ -252,5 +263,21 @@ public class Player : MonoBehaviour
                 _shield.SetActive(_shieldActive);
                 break;
         }
+    }
+    public bool GetSuperBulletOn()
+    {
+        return _isSuperBulletOn;
+    }
+
+    public void StartSuperBullet()
+    {
+        _isSuperBulletOn = true;
+        StartCoroutine(StopSuperBullet());
+    }
+
+    IEnumerator StopSuperBullet()
+    {
+        yield return new WaitForSeconds(5f);
+        _isSuperBulletOn = false;
     }
 }

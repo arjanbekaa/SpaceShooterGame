@@ -40,6 +40,9 @@ public class PowerUp : MonoBehaviour
                     case 4:
                         player.LifeCollactable();
                         break;
+                    case 5:
+                        player.StartSuperBullet();
+                        break;
                 }
             }
             AudioSource.PlayClipAtPoint(_powerUpClip, this.transform.position);
