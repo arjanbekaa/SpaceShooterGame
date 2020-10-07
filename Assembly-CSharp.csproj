@@ -65,6 +65,7 @@
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\SpawnManager.cs" />
+    <Compile Include="Assets\Script\Shake.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\GameDevHQ\FileBase\Plugin\Filebase.dll" />

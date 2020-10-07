@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     private GameObject _shieldGO;
     private SpriteRenderer _shiedlSpriteRenderer;
 
+    private Shake _shake;
+
     [SerializeField]
     private float _speed = 4f;
     private float _speedHelper;
@@ -54,9 +56,11 @@ public class Player : MonoBehaviour
     void Start()
     {
         _tripleShotActive = false;
+        _shake = GameObject.Find("Shake").GetComponent<Shake>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _shiedlSpriteRenderer = _shieldGO.GetComponent<SpriteRenderer>();
+        if (_shake == null) Debug.LogError("Shake is null");
         if (_spawnManager == null) Debug.LogError("Spawn Manager is null");
         if(_uIManager == null) Debug.LogError("The UIManager is null");
 
@@ -148,6 +152,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+
     public void AddSpeed()
     {
         _speed += 0.2f;
@@ -163,6 +168,7 @@ public class Player : MonoBehaviour
             return;
         }
 
+        _shake.shake();
         _life--;
 
         _uIManager.UpdateLives(_life);

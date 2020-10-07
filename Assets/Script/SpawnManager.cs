@@ -23,7 +23,6 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-        StartCoroutine(PowerUpSpawnRoutine());
     }
     public void StartSpawning()
     {
