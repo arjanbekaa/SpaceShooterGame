@@ -22,9 +22,21 @@ public class Enemy : MonoBehaviour
     private bool _isDestroyed = false;
     private float _fireRate = 3.0f;
     private float _canFire = -1;
+    private bool _isShielded;
 
     void Start()
     {
+        if (id == 0)
+        {
+            _isShielded = false;
+            _shield.SetActive(_isShielded);
+        }
+        else
+        {
+            _isShielded = true;
+            _shield.SetActive(_isShielded);
+        }
+
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = this.GetComponent<AudioSource>();
@@ -56,7 +68,7 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        //If the player tuches the enemy even with a shield the enemy will die imidiatly;
         if (other.tag == "Player")
         {
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
@@ -68,6 +80,13 @@ public class Enemy : MonoBehaviour
         }
         if (other.tag == "Bullet")
         {
+            if (_isShielded)
+            {
+                _isShielded = false;
+                _shield.SetActive(_isShielded);
+                Destroy(other.gameObject);
+                return;
+            }
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             _isDestroyed = true;
             _player.AddSpeed();

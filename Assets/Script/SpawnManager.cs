@@ -6,7 +6,7 @@ using UnityEngine.PlayerLoop;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemy;
+    private GameObject [] _enemy;
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         while (!_stopSpawn) {
             int ran = Random.Range(0, 20);
-            var InstantiatedEnemy = Instantiate(_enemy, new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
+            var InstantiatedEnemy = Instantiate(_enemy[EnemyRarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             InstantiatedEnemy.transform.parent = (_enemyContainer.transform);
         yield return new WaitForSeconds(4);
         }
