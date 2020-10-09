@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 {
 
     [SerializeField]
+    private Text _waveText;
+    [SerializeField]
     private Text _speedCoolDown;
     [SerializeField]
     private Slider _thrusterBar;
@@ -31,8 +33,9 @@ public class UIManager : MonoBehaviour
     private Image _lifeDisplay;
     private GameManager _gameManager;
     private Player _player;
+    private bool _clearedTheGame = false;
 
-    private bool _barwait = false;
+    private bool _BarHudWait = false;
 
     private float currentValue = 0f;
     public float CurrentValue
@@ -59,17 +62,34 @@ public class UIManager : MonoBehaviour
         _mainMenuBtn.gameObject.SetActive(false);
         _scoreText.text = "Score: " + 0;
         _missedEnemies.text = "Enemies Missed : 0";
+        _waveText.text = "WAVE: 1 / " + (_player.getWave()+1);
     }
     private void Update()
     {
-        if (_barwait)
+        if (_BarHudWait)
         {
             StartCoroutine(ThrusetBar());
+        }
+    }
+    public void UpdateWaveText(int wave)
+    {
+        if(wave == _player.getWave())
+        {
+            _clearedTheGame = true;
+            GameOverAction();
+        }
+        else
+        {
+            _waveText.text = "WAVE: " + (++wave) + " / " + _player.getWave();
         }
     }
     public void UpdateMissedEnemies(int missedEnemies)
     {
         _missedEnemies.text = "Enemies Missed : " + missedEnemies;
+        if (missedEnemies == 5)
+        {
+            GameOverAction();
+        }
     }
     public void UpdateScore(int playerScore)
     {
@@ -89,7 +109,7 @@ public class UIManager : MonoBehaviour
         _speedCoolDown.text = "   " + (int)a;
         if((int)a == 5)
         {
-            _barwait = true;
+            _BarHudWait = true;
             CurrentValue = 0f;
             _speedCoolDown.text = "Wait..";
             StartCoroutine(waitTxt());
@@ -113,12 +133,12 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         _speedCoolDown.text = "GO";
-        _barwait = false;
+        _BarHudWait = false;
     }
 
     IEnumerator ThrusetBar()
     {
-        while (_barwait)
+        while (_BarHudWait)
         {
             CurrentValue += 0.000038f;
 
@@ -131,6 +151,11 @@ public class UIManager : MonoBehaviour
         _gameManager.GameOver();
         _mainMenuBtn.gameObject.SetActive(true);
         _restartText.gameObject.SetActive(true);
+        if (_clearedTheGame)
+        {
+            _gameOver.transform.position += new Vector3(-50,0,0);
+            _gameOver.text = "Congretulations...";
+        }
         _gameOver.gameObject.SetActive(true);
         StartCoroutine(FlickerRoutin());
     }

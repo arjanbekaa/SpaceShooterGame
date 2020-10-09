@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour
         //If the player tuches the enemy even with a shield the enemy will die imidiatly;
         if (other.tag == "Player")
         {
-            //_player.WaveFinished();
+            _player.WaveFinished();
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             Player player = other.GetComponent<Player>();
             if (player != null) player.Damage();
@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
                 return;
             }
 
-            //_player.WaveFinished();
+            _player.WaveFinished();
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             _isDestroyed = true;
             _player.AddSpeed();

@@ -54,10 +54,10 @@ public class Player : MonoBehaviour
     private float _leftShiftSpeedCoolDown = 5;
     private SpawnManager _spawnManager;
 
-/*    private int _enemyDistroyed = 0;
+    private int _enemyDistroyed = 0;
     private int _waveEnemies = 2;
     private int _numberOfWaves = 3;
-    private int _wavesFinished = 0;*/
+    private int _wavesFinished = 0;
     void Start()
     {
         _tripleShotActive = false;
@@ -230,6 +230,7 @@ public class Player : MonoBehaviour
 
     public float getSpeed() { return _speed; }
     public float getMaxBullet() { return _maxBulletInventory; }
+    public int getWave() { return _numberOfWaves; }
     public void AddSpeed()
     {
         _speed += 0.2f;
@@ -275,22 +276,25 @@ public class Player : MonoBehaviour
         StartCoroutine(StopSuperBullet());
     }
 
-    /*    public void WaveFinished()
+    public void WaveFinished()
+    {
+        if (_wavesFinished <= _numberOfWaves)
         {
-            if (_wavesFinished <= _numberOfWaves) {
-                    _enemyDistroyed++;
-                if (_enemyDistroyed == _waveEnemies)
-                {
-                    _spawnManager.StopSpawning();
-                    _waveEnemies += _waveEnemies;
-                    _wavesFinished++;
-                }
-            }
-            else
+            _enemyDistroyed++;
+            if (_enemyDistroyed == _waveEnemies)
             {
-                _spawnManager.GameOver();
+                _spawnManager.StopSpawning();
+                _waveEnemies += _waveEnemies;
+                _wavesFinished++;
+                _enemyDistroyed = 0;
+                _uIManager.UpdateWaveText(_wavesFinished);
             }
-        }*/
+        }
+        else
+        {
+            _spawnManager.GameOver();
+        }
+    }
 
 
     IEnumerator TripleShotRoutin()

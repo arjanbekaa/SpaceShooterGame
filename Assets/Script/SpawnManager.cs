@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
-    private GameObject[] _powerups;
+    private GameObject[] _powerUps;
     [SerializeField]
     private GameObject _powerUpContainer;
     [SerializeField]
@@ -32,11 +32,11 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(EnemySpawnRoutine());
         StartCoroutine(PowerUpSpawnRoutine());
     }
-  /*  public void StopSpawning()
+    public void StopSpawning()
     {
         _stopSpawn = true;
         var InstantiatedEnemy = Instantiate(_astroid, new Vector3(0, 3, 0), Quaternion.identity);
-    }*/
+    }
     IEnumerator EnemySpawnRoutine()
     {
         yield return new WaitForSeconds(2.0f);
@@ -53,9 +53,9 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         while (!_stopSpawn)
         {
-            int ran = Random.Range(0, 110);
+            int ran = Random.Range(0, 120);
             yield return new WaitForSeconds(Random.Range(6,9));
-            var instantiatedPowerUp = Instantiate(_powerups[PUrarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
+            var instantiatedPowerUp = Instantiate(_powerUps[PUrarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             instantiatedPowerUp.transform.parent = _powerUpContainer.transform;
         }
     }
@@ -73,8 +73,8 @@ public class SpawnManager : MonoBehaviour
         if (a < 10) result = 0;
         else if (a < 40 && a > 10) result = 1;
         else if (a < 60 && a > 40) result = 2;
-        else if (a < 90 && a > 60) result = 3;
-        else if (a < 100 && a > 90) result = 4;
+        else if (a < 105 && a > 60) result = 3;
+        else if (a < 110 && a > 105) result = 4;
         else result = 5;
         return result;
     }
@@ -84,6 +84,12 @@ public class SpawnManager : MonoBehaviour
         var clones = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var clone in clones) { Destroy(clone); }
         Destroy(GameObject.FindGameObjectWithTag("Player"));
+    }
+    public void GameFinished()
+    {
+        _stopSpawn = true;
+        var clones = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var clone in clones) { Destroy(clone); }
     }
 
     public void miss() {
