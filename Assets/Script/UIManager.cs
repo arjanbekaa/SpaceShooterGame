@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _speedCoolDown;
     [SerializeField]
+    private Slider _thrusterBar;
+    [SerializeField]
     private Text _ammoTxt;
     [SerializeField]
     private Text _scoreText;
@@ -29,8 +31,25 @@ public class UIManager : MonoBehaviour
     private Image _lifeDisplay;
     private GameManager _gameManager;
 
+    private bool _barwait = false;
+
+    private float currentValue = 0f;
+    public float CurrentValue
+    {
+        get
+        {
+            return currentValue;
+        }
+        set
+        {
+            currentValue = value;
+            _thrusterBar.value = currentValue;
+        }
+    }
+
     void Start()
     {
+        CurrentValue = 100f;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         if (_gameManager == null) Debug.LogError("Game Manager is null");
         _gameOver.gameObject.SetActive(false);
@@ -38,6 +57,13 @@ public class UIManager : MonoBehaviour
         _mainMenuBtn.gameObject.SetActive(false);
         _scoreText.text = "Score: " + 0;
         _missedEnemies.text = "Enemies Missed : 0";
+    }
+    private void Update()
+    {
+        if (_barwait)
+        {
+            StartCoroutine(ThrusetBar());
+        }
     }
     public void UpdateMissedEnemies(int missedEnemies)
     {
@@ -58,10 +84,12 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateSpeedCDtxt(float a)
     {
-        _speedCoolDown.text = "" + (int)a;
+        _speedCoolDown.text = "   " + (int)a;
         if((int)a == 5)
         {
-            _speedCoolDown.text = "Wait...";
+            _barwait = true;
+            CurrentValue = 0f;
+            _speedCoolDown.text = "Wait..";
             StartCoroutine(waitTxt());
         }
     }
@@ -83,6 +111,17 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         _speedCoolDown.text = "GO";
+        _barwait = false;
+    }
+
+    IEnumerator ThrusetBar()
+    {
+        while (_barwait)
+        {
+            CurrentValue += 0.000038f;
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     public void GameOverAction()

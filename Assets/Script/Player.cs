@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _tripleShotActive = false;
+        _speedHelper = _speed;
         _shake = GameObject.Find("Shake").GetComponent<Shake>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
@@ -63,8 +64,6 @@ public class Player : MonoBehaviour
         if (_shake == null) Debug.LogError("Shake is null");
         if (_spawnManager == null) Debug.LogError("Spawn Manager is null");
         if(_uIManager == null) Debug.LogError("The UIManager is null");
-
-        _speedHelper = _speed;
     }
 
     void Update()
@@ -80,7 +79,6 @@ public class Player : MonoBehaviour
             _uIManager.UpdateAmmoTxt(_maxBulletInventory - _countBulletsShoot);
         }
     }
-
     public void playerMovement()
     {
         float horizontal = Input.GetAxis("Horizontal");
@@ -206,7 +204,6 @@ public class Player : MonoBehaviour
         _speed += _speedMultiplayer;
         StartCoroutine(SpeedUpRoutin());
     }
-
     IEnumerator SpeedUpRoutin()
     {
         yield return new WaitForSeconds(4);

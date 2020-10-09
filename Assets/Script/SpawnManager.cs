@@ -28,11 +28,12 @@ public class SpawnManager : MonoBehaviour
     {
         _stopSpawn = false;
         StartCoroutine(EnemySpawnRoutine());
+        StartCoroutine(PowerUpSpawnRoutine());
     }
     IEnumerator EnemySpawnRoutine()
     {
         yield return new WaitForSeconds(2.0f);
-        while (_stopSpawn == false) { 
+        while (!_stopSpawn) { 
         var InstantiatedEnemy = Instantiate(_enemy, new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             InstantiatedEnemy.transform.parent = (_enemyContainer.transform);
         yield return new WaitForSeconds(4);
@@ -41,10 +42,11 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator PowerUpSpawnRoutine()
     {
-        while (true)
+        yield return new WaitForSeconds(2.0f);
+        while (!_stopSpawn)
         {
             int ran = Random.Range(0, 110);
-            yield return new WaitForSeconds(Random.Range(4,8));
+            yield return new WaitForSeconds(Random.Range(6,9));
             var instantiatedPowerUp = Instantiate(_powerups[rarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             instantiatedPowerUp.transform.parent = _powerUpContainer.transform;
         }
