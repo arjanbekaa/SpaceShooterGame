@@ -155,12 +155,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    public void AddSpeed()
-    {
-        _speed += 0.2f;
-    }
-    public float getSpeed() { return _speed; }
     public void Damage()
     {
         var ran = Random.Range(1, 3);
@@ -194,45 +188,6 @@ public class Player : MonoBehaviour
             _spawnManager.GameOver();
         }
     }
-    public void TripleShot()
-    {
-        _tripleShotActive = true;
-        StartCoroutine(TripleShotRoutin());
-    }
-    IEnumerator TripleShotRoutin()
-    {
-        yield return new WaitForSeconds(5);
-        _tripleShotActive = false;
-    }
-    public void SpeedUp()
-    {
-        _speed += _speedMultiplayer;
-        StartCoroutine(SpeedUpRoutin());
-    }
-    IEnumerator SpeedUpRoutin()
-    {
-        yield return new WaitForSeconds(4);
-        _speed -= _speedMultiplayer;
-    }
-
-    public void ShieldUp()
-    {
-        _shieldLifes = 3;
-        _shieldActive = true;
-        _shield.SetActive(_shieldActive);
-        ShieldColor();
-    }
-    public void AddScore(int points)
-    {
-        _score += points;
-        _uIManager.UpdateScore(_score);
-    }
-    public void AmmoCollected()
-    {
-        _maxBulletInventory = 15;
-        _uIManager.UpdateAmmoTxt(_maxBulletInventory);
-        _countBulletsShoot = 0;
-    }
     public void LifeCollactable()
     {
         var ran = Random.Range(1, 3);
@@ -241,7 +196,7 @@ public class Player : MonoBehaviour
         {
             if (_life == 2)
             {
-                if (_leftEngine.activeSelf)_leftEngine.SetActive(false);
+                if (_leftEngine.activeSelf) _leftEngine.SetActive(false);
                 else _rightEngine.SetActive(false);
             }
             else if (_life == 1)
@@ -272,6 +227,43 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
+    public float getSpeed() { return _speed; }
+    public float getMaxBullet() { return _maxBulletInventory; }
+    public void AddSpeed()
+    {
+        _speed += 0.2f;
+    }
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uIManager.UpdateScore(_score);
+    }
+    public void TripleShot()
+    {
+        _tripleShotActive = true;
+        StartCoroutine(TripleShotRoutin());
+    }
+   
+    public void SpeedUp()
+    {
+        _speed += _speedMultiplayer;
+        StartCoroutine(SpeedUpRoutin());
+    }
+    
+    public void ShieldUp()
+    {
+        _shieldLifes = 3;
+        _shieldActive = true;
+        _shield.SetActive(_shieldActive);
+        ShieldColor();
+    }
+    public void AmmoCollected()
+    {
+        _maxBulletInventory = 15;
+        _uIManager.UpdateAmmoTxt(_maxBulletInventory);
+        _countBulletsShoot = 0;
+    }
     public bool GetSuperBulletOn()
     {
         return _isSuperBulletOn;
@@ -283,26 +275,38 @@ public class Player : MonoBehaviour
         StartCoroutine(StopSuperBullet());
     }
 
+    /*    public void WaveFinished()
+        {
+            if (_wavesFinished <= _numberOfWaves) {
+                    _enemyDistroyed++;
+                if (_enemyDistroyed == _waveEnemies)
+                {
+                    _spawnManager.StopSpawning();
+                    _waveEnemies += _waveEnemies;
+                    _wavesFinished++;
+                }
+            }
+            else
+            {
+                _spawnManager.GameOver();
+            }
+        }*/
+
+
+    IEnumerator TripleShotRoutin()
+    {
+        yield return new WaitForSeconds(5);
+        _tripleShotActive = false;
+    }
+    IEnumerator SpeedUpRoutin()
+    {
+        yield return new WaitForSeconds(4);
+        _speed -= _speedMultiplayer;
+    }
+
     IEnumerator StopSuperBullet()
     {
         yield return new WaitForSeconds(5f);
         _isSuperBulletOn = false;
     }
-
-/*    public void WaveFinished()
-    {
-        if (_wavesFinished <= _numberOfWaves) {
-                _enemyDistroyed++;
-            if (_enemyDistroyed == _waveEnemies)
-            {
-                _spawnManager.StopSpawning();
-                _waveEnemies += _waveEnemies;
-                _wavesFinished++;
-            }
-        }
-        else
-        {
-            _spawnManager.GameOver();
-        }
-    }*/
 }

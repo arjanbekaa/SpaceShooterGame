@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image _lifeDisplay;
     private GameManager _gameManager;
+    private Player _player;
 
     private bool _barwait = false;
 
@@ -51,6 +52,7 @@ public class UIManager : MonoBehaviour
     {
         CurrentValue = 100f;
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _player = GameObject.Find("Player").GetComponent<Player>();
         if (_gameManager == null) Debug.LogError("Game Manager is null");
         _gameOver.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
@@ -98,12 +100,12 @@ public class UIManager : MonoBehaviour
         if(ammo < 6)
         {
             _ammoTxt.color = Color.red;
-            _ammoTxt.text = "Ammo: " + ammo;
+            _ammoTxt.text = "Current/Max: " + ammo +" / " + _player.getMaxBullet();
         }
         else
         {
             _ammoTxt.color = Color.white;
-            _ammoTxt.text = "Ammo: " + ammo;
+            _ammoTxt.text = "Current/Max: " + ammo + " / " + _player.getMaxBullet();
         }
     }
 
