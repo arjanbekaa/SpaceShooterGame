@@ -5,6 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
+    private int id;
+    [SerializeField]
+    private GameObject _shield;
+    [SerializeField]
     private GameObject _explositon;
     [SerializeField]
     private GameObject _superBullet;
@@ -18,12 +22,14 @@ public class Enemy : MonoBehaviour
     private bool _isDestroyed = false;
     private float _fireRate = 3.0f;
     private float _canFire = -1;
+
     void Start()
     {
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = this.GetComponent<AudioSource>();
         if (_audioSource == null) Debug.LogError("Audio Source is null");
+        if (_shield == null) Debug.LogError("Not an Enemy with a Shield");
         if (_spawnManager == null) Debug.LogError("Spawn Manager is null");
         if (_player == null) Debug.LogError("Player is null");
         _audioSource.clip = _explosionClip;

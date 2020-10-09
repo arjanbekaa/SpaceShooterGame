@@ -33,8 +33,9 @@ public class SpawnManager : MonoBehaviour
     IEnumerator EnemySpawnRoutine()
     {
         yield return new WaitForSeconds(2.0f);
-        while (!_stopSpawn) { 
-        var InstantiatedEnemy = Instantiate(_enemy, new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
+        while (!_stopSpawn) {
+            int ran = Random.Range(0, 20);
+            var InstantiatedEnemy = Instantiate(_enemy, new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             InstantiatedEnemy.transform.parent = (_enemyContainer.transform);
         yield return new WaitForSeconds(4);
         }
@@ -47,19 +48,25 @@ public class SpawnManager : MonoBehaviour
         {
             int ran = Random.Range(0, 110);
             yield return new WaitForSeconds(Random.Range(6,9));
-            var instantiatedPowerUp = Instantiate(_powerups[rarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
+            var instantiatedPowerUp = Instantiate(_powerups[PUrarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             instantiatedPowerUp.transform.parent = _powerUpContainer.transform;
         }
     }
-
-    public int rarity(int a)
+    public int EnemyRarity(int a)
     {
         int result = 0;
-        if (a < 20) result = 0;
-        else if (a < 40 && a > 20) result = 1;
+        if (a < 15) result = 0;
+        else result = 1;
+        return result;
+    }
+    public int PUrarity(int a)
+    {
+        int result = 0;
+        if (a < 10) result = 0;
+        else if (a < 40 && a > 10) result = 1;
         else if (a < 60 && a > 40) result = 2;
-        else if (a < 80 && a > 60) result = 3;
-        else if (a < 100 && a > 80) result = 4;
+        else if (a < 90 && a > 60) result = 3;
+        else if (a < 100 && a > 90) result = 4;
         else result = 5;
         return result;
     }
