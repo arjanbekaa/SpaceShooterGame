@@ -23,20 +23,12 @@ public class Enemy : MonoBehaviour
     private float _fireRate = 3.0f;
     private float _canFire = -1;
     private bool _isShielded;
+    private Vector3 _pos;
 
     void Start()
     {
-        if (id == 0)
-        {
-            _isShielded = false;
-            _shield.SetActive(_isShielded);
-        }
-        else
-        {
-            _isShielded = true;
-            _shield.SetActive(_isShielded);
-        }
-
+        _pos = this.transform.position;
+        EnemyCheck(); 
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = this.GetComponent<AudioSource>();
@@ -59,18 +51,46 @@ public class Enemy : MonoBehaviour
     }
     public void CalculateMovement()
     {
-        if (!_isDestroyed) this.transform.Translate(Vector3.down * _spawnManager.GetEnemySpeed() * Time.deltaTime);
-        if (this.transform.position.y <= -5.39f)
+        if (id != 2)
         {
-            this.transform.position = new Vector3(Random.Range(-9.46f, 9.43f), 6.94f, 0);
-            _spawnManager.miss();
+            if (!_isDestroyed) this.transform.Translate(Vector3.down * _spawnManager.GetEnemySpeed() * Time.deltaTime);
+            if (this.transform.position.y <= -5.39f)
+            {
+                this.transform.position = new Vector3(Random.Range(-9.46f, 9.43f), 6.94f, 0);
+                _spawnManager.miss();
+            }
+        }
+        else
+        {
+            if (!_isDestroyed)
+            {
+                Vector3 final = new Vector3(0, -1, 0);
+                if (_pos.x < 0)
+                {
+                    final.x += 0.5f;
+                }
+                else
+                {
+                    final.x += -0.5f;
+                }
+                this.transform.Translate(final * _spawnManager.GetEnemySpeed() * Time.deltaTime);
+            }
+
+            if (this.transform.position.y <= -5.39f || this.transform.position.x >= 11 || this.transform.position.x <= -11)
+            {
+                // i left it so when it spawns for the second time it will have the same direction so when others apper will be more randome;
+                this.transform.position = new Vector3(Random.Range(-9.46f, 9.43f), 6.94f, 0);
+                _spawnManager.miss();
+            }
         }
     }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         //If the player tuches the enemy even with a shield the enemy will die imidiatly;
         if (other.tag == "Player")
         {
+            //_player.WaveFinished();
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             Player player = other.GetComponent<Player>();
             if (player != null) player.Damage();
@@ -87,6 +107,8 @@ public class Enemy : MonoBehaviour
                 Destroy(other.gameObject);
                 return;
             }
+
+            //_player.WaveFinished();
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             _isDestroyed = true;
             _player.AddSpeed();
@@ -104,6 +126,21 @@ public class Enemy : MonoBehaviour
             Destroy(explosion, 2.40f);
         }
     }
+
+    public void EnemyCheck()
+    {
+        if (id == 1)
+        {
+            _isShielded = true;
+            _shield.SetActive(_isShielded);
+        }
+        else 
+        {
+            _isShielded = false;
+            _shield.SetActive(_isShielded);
+        }
+    }
+
     IEnumerator SpawnSuperBullet()
     {
         yield return new WaitForSeconds(0.18f);

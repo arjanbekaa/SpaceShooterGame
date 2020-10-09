@@ -53,6 +53,11 @@ public class Player : MonoBehaviour
     private float _canSpeed = -5;
     private float _leftShiftSpeedCoolDown = 5;
     private SpawnManager _spawnManager;
+
+/*    private int _enemyDistroyed = 0;
+    private int _waveEnemies = 2;
+    private int _numberOfWaves = 3;
+    private int _wavesFinished = 0;*/
     void Start()
     {
         _tripleShotActive = false;
@@ -283,4 +288,21 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
         _isSuperBulletOn = false;
     }
+
+/*    public void WaveFinished()
+    {
+        if (_wavesFinished <= _numberOfWaves) {
+                _enemyDistroyed++;
+            if (_enemyDistroyed == _waveEnemies)
+            {
+                _spawnManager.StopSpawning();
+                _waveEnemies += _waveEnemies;
+                _wavesFinished++;
+            }
+        }
+        else
+        {
+            _spawnManager.GameOver();
+        }
+    }*/
 }

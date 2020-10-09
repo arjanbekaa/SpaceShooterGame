@@ -6,6 +6,8 @@ using UnityEngine.PlayerLoop;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject _astroid;
+    [SerializeField]
     private GameObject [] _enemy;
     [SerializeField]
     private GameObject _enemyContainer;
@@ -30,11 +32,16 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(EnemySpawnRoutine());
         StartCoroutine(PowerUpSpawnRoutine());
     }
+  /*  public void StopSpawning()
+    {
+        _stopSpawn = true;
+        var InstantiatedEnemy = Instantiate(_astroid, new Vector3(0, 3, 0), Quaternion.identity);
+    }*/
     IEnumerator EnemySpawnRoutine()
     {
         yield return new WaitForSeconds(2.0f);
         while (!_stopSpawn) {
-            int ran = Random.Range(0, 20);
+            int ran = Random.Range(0, 30);
             var InstantiatedEnemy = Instantiate(_enemy[EnemyRarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             InstantiatedEnemy.transform.parent = (_enemyContainer.transform);
         yield return new WaitForSeconds(4);
@@ -56,7 +63,8 @@ public class SpawnManager : MonoBehaviour
     {
         int result = 0;
         if (a < 15) result = 0;
-        else result = 1;
+        else if (a > 15 && a < 20) result = 1;
+        else result = 2;
         return result;
     }
     public int PUrarity(int a)
@@ -90,7 +98,7 @@ public class SpawnManager : MonoBehaviour
     }
     public void AddEnemySpeed()
     {
-        _enemySpeed += 0.2f;
+        if(_enemySpeed <= 5)_enemySpeed += 0.2f;
     }
     public float GetEnemySpeed() { return _enemySpeed; }
 }
