@@ -242,6 +242,7 @@ public class Player : MonoBehaviour
     }
     public void TripleShot()
     {
+        _speed -= 0.5f;
         _tripleShotActive = true;
         StartCoroutine(TripleShotRoutin());
     }
@@ -301,6 +302,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         _tripleShotActive = false;
+        _speed += 0.5f;
     }
     IEnumerator SpeedUpRoutin()
     {
