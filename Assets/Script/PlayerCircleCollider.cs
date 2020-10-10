@@ -35,6 +35,7 @@ public class PlayerCircleCollider : MonoBehaviour
     {
         if (_isNear)
         {
+            if (_collider.transform.position.y < _target.y) return;
             float step = _spawnManager.GetEnemySpeed() * Time.deltaTime;
             _collider.transform.position = Vector3.MoveTowards(_collider.transform.position, _target, step);
         }

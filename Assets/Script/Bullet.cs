@@ -52,11 +52,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && this.transform.parent.name == "EnemyBullet(Clone)")
+        if (other.tag == "Player")
         {
-            Destroy(this.transform.parent.gameObject);
-            Player player = other.GetComponent<Player>();
-            if (player != null) player.Damage();
+            if (this.transform.parent.name == "EnemyBullet(Clone)" || this.transform.parent.name == "SmartEnemyBullet(Clone)")
+            {
+                Destroy(this.transform.parent.gameObject);
+                Player player = other.GetComponent<Player>();
+                if (player != null) player.Damage();
+            }
         }
     }
 }

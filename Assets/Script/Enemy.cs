@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _explositon;
     [SerializeField]
+    private GameObject _smartEnemyBullet;
+    [SerializeField]
     private GameObject _superBullet;
     [SerializeField]
     private AudioClip _explosionClip;
@@ -24,6 +26,7 @@ public class Enemy : MonoBehaviour
     private float _canFire = -1;
     private bool _isShielded;
     private Vector3 _pos;
+    private bool _didShoot = false;
 
     void Start()
     {
@@ -41,8 +44,8 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-       
-        if(Time.time > _canFire)
+        SmartEnemy();
+        if (Time.time > _canFire)
         {
             _fireRate = Random.Range(3.0f, 7.0f);
             _canFire = Time.time + _fireRate;
@@ -58,6 +61,7 @@ public class Enemy : MonoBehaviour
             {
                 this.transform.position = new Vector3(Random.Range(-9.46f, 9.43f), 6.94f, 0);
                 _spawnManager.miss();
+                _didShoot = false;
             }
         }
         else
@@ -81,6 +85,7 @@ public class Enemy : MonoBehaviour
                 // i left it so when it spawns for the second time it will have the same direction so when others apper will be more randome;
                 this.transform.position = new Vector3(Random.Range(-9.46f, 9.43f), 6.94f, 0);
                 _spawnManager.miss();
+                _didShoot = false;
             }
         }
     }
@@ -138,6 +143,21 @@ public class Enemy : MonoBehaviour
         {
             _isShielded = false;
             _shield.SetActive(_isShielded);
+        }
+    }
+
+    public void SmartEnemy()
+    {
+        if(this.transform.position.x >= _player.transform.position.x - 0.7f && this.transform.position.x <= _player.transform.position.x + 0.7f)
+        {
+            if(this.transform.position.y < _player.transform.position.y - 0.5)
+            {
+                if (!_didShoot)
+                {
+                    Instantiate(_smartEnemyBullet, this.transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+                    _didShoot = true;
+                }
+            }
         }
     }
 

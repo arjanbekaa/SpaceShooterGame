@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
-    private GameObject[] _powerUps;
+    private GameObject [] _powerUps;
     [SerializeField]
     private GameObject _powerUpContainer;
     [SerializeField]
@@ -41,7 +41,7 @@ public class SpawnManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         while (!_stopSpawn) {
-            int ran = Random.Range(0, 30);
+            int ran = Random.Range(0, 40);
             var InstantiatedEnemy = Instantiate(_enemy[EnemyRarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             InstantiatedEnemy.transform.parent = (_enemyContainer.transform);
         yield return new WaitForSeconds(4);
@@ -64,7 +64,8 @@ public class SpawnManager : MonoBehaviour
         int result = 0;
         if (a < 15) result = 0;
         else if (a > 15 && a < 20) result = 1;
-        else result = 2;
+        else if (a > 20 && a < 30) result = 2;
+        else result = 3;
         return result;
     }
     public int PUrarity(int a)
