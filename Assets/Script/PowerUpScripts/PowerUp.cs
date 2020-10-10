@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    [SerializeField]
     private GameObject _player;
     [SerializeField]
     private AudioClip _powerUpClip;

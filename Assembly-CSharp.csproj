@@ -66,6 +66,7 @@
      <Compile Include="Assets\Script\Player.cs" />
      <Compile Include="Assets\Script\Enemy.cs" />
      <Compile Include="Assets\Script\SpawnManager.cs" />
+     <Compile Include="Assets\Script\PlayerCircleCollider.cs" />
      <None Include="Assets\GameDevHQ\FileBase\Projects\Tutorials\Starter_Files\2D_Galaxy_Assets\Materials\Shaders\Galaxy.shader" />
      <None Include="Assets\GameDevHQ\FileBase\Plugin\README.txt" />
  <Reference Include="Unity.Timeline.Editor">
