@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     private AudioClip _explosionClip;
     [SerializeField]
     private GameObject _enemyBullet;
+    private GameObject [] _powerUps;
     private AudioSource _audioSource;
     private SpawnManager _spawnManager;
     private Player _player;
@@ -27,15 +28,18 @@ public class Enemy : MonoBehaviour
     private bool _isShielded;
     private Vector3 _pos;
     private bool _didShoot = false;
+    private bool _powerUpShoot = false;
 
     void Start()
     {
         _pos = this.transform.position;
-        EnemyCheck(); 
+        EnemyCheck();
+        _powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = this.GetComponent<AudioSource>();
         if (_audioSource == null) Debug.LogError("Audio Source is null");
+        if (_powerUps == null) Debug.LogError("Power Up is null");
         if (_shield == null) Debug.LogError("Not an Enemy with a Shield");
         if (_spawnManager == null) Debug.LogError("Spawn Manager is null");
         if (_player == null) Debug.LogError("Player is null");
@@ -45,12 +49,41 @@ public class Enemy : MonoBehaviour
     {
         CalculateMovement();
         SmartEnemy();
+        shoot();
+        PowerUpShot();
+    }
+    public void shoot()
+    {
         if (Time.time > _canFire)
         {
             _fireRate = Random.Range(3.0f, 7.0f);
             _canFire = Time.time + _fireRate;
             Instantiate(_enemyBullet, this.transform.position, Quaternion.identity);
         }
+    }
+    public void PowerUpShot()
+    {
+        foreach (var pu in _powerUps)
+        {
+            if (pu == null) return;
+            if (this.transform.position.x >= pu.transform.position.x - 0.7f && this.transform.position.x <= pu.transform.position.x + 0.7f)
+            {
+                if (this.transform.position.y > pu.transform.position.y + 0.5)
+                {
+                    if (!_powerUpShoot)
+                    {
+                        Instantiate(_enemyBullet, this.transform.position, Quaternion.identity);
+                        _powerUpShoot = true;
+                        StartCoroutine(PowerUpShoot());
+                    }
+                }
+            }
+        }
+    }
+    IEnumerator PowerUpShoot()
+    {
+        yield return new WaitForSeconds(5f);
+        _powerUpShoot = false;
     }
     public void CalculateMovement()
     {
@@ -61,7 +94,6 @@ public class Enemy : MonoBehaviour
             {
                 this.transform.position = new Vector3(Random.Range(-9.46f, 9.43f), 6.94f, 0);
                 _spawnManager.miss();
-                _didShoot = false;
             }
         }
         else
@@ -85,7 +117,6 @@ public class Enemy : MonoBehaviour
                 // i left it so when it spawns for the second time it will have the same direction so when others apper will be more randome;
                 this.transform.position = new Vector3(Random.Range(-9.46f, 9.43f), 6.94f, 0);
                 _spawnManager.miss();
-                _didShoot = false;
             }
         }
     }
@@ -103,7 +134,7 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject, 0.19f);
             Destroy(explosion, 2.40f);
         }
-        if (other.tag == "Bullet")
+        else if (other.tag == "Bullet")
         {
             if (_isShielded)
             {
@@ -130,6 +161,10 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject, 0.19f);
             Destroy(explosion, 2.40f);
         }
+        else if (other.tag == "PowerUp")
+        {
+            Destroy(other.gameObject);
+        }
     }
 
     public void EnemyCheck()
@@ -150,17 +185,23 @@ public class Enemy : MonoBehaviour
     {
         if(this.transform.position.x >= _player.transform.position.x - 0.7f && this.transform.position.x <= _player.transform.position.x + 0.7f)
         {
-            if(this.transform.position.y < _player.transform.position.y - 0.5)
+            if (this.transform.position.y < _player.transform.position.y - 0.5)
             {
                 if (!_didShoot)
                 {
                     Instantiate(_smartEnemyBullet, this.transform.position + new Vector3(0, 2, 0), Quaternion.identity);
                     _didShoot = true;
+                    StartCoroutine(ShootPlayer());
                 }
             }
         }
     }
 
+    IEnumerator ShootPlayer()
+    {
+        yield return new WaitForSeconds(5f);
+        _didShoot = false;
+    }
     IEnumerator SpawnSuperBullet()
     {
         yield return new WaitForSeconds(0.18f);

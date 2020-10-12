@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviour
     public int score;
     private UIManager _uIManager;
     private bool _stopSpawn;
-    private float _enemySpeed = 3f;
+    private float _enemySpeed = 0.2f;
     private int _missedEnemies = 0;
 
     private void Start()

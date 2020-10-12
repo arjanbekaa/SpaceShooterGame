@@ -7,7 +7,7 @@ public class PowerUp : MonoBehaviour
     private GameObject _player;
     [SerializeField]
     private AudioClip _powerUpClip;
-    private float _speed = 2;
+    private float _speed = 0.2f;
     [SerializeField]
     private int _powerUpID;
 

@@ -44,6 +44,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 21978546681493245, guid: 69d78b97f008fbc49b22be0e476708f8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bullet
+      objectReference: {fileID: 0}
     - target: {fileID: 1012455087547911076, guid: 69d78b97f008fbc49b22be0e476708f8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -128,6 +133,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BulletRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 21978546681493245, guid: 69d78b97f008fbc49b22be0e476708f8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 1012455087547911076, guid: 69d78b97f008fbc49b22be0e476708f8,
         type: 3}

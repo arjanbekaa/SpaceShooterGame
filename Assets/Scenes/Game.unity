@@ -1509,7 +1509,7 @@ MonoBehaviour:
   - {fileID: 6117706255602755248, guid: 2838f5e877e5e6b4c9c39a1b4b4495c2, type: 3}
   - {fileID: 2856901151996767574, guid: 5f25b60986f4a5942b84ca74ce61c9b5, type: 3}
   - {fileID: 5029737296528113052, guid: 02097ed39dd3a1c4b8b83d77287e915f, type: 3}
-  - {fileID: 2982957890981238107, guid: 233b0372afefd2f4b9908b2783cb913c, type: 3}
+  - {fileID: 2069006509838159520, guid: 233b0372afefd2f4b9908b2783cb913c, type: 3}
   _powerUpContainer: {fileID: 728088355}
   score: 0
 --- !u!4 &1173856133

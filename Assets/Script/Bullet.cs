@@ -56,9 +56,16 @@ public class Bullet : MonoBehaviour
         {
             if (this.transform.parent.name == "EnemyBullet(Clone)" || this.transform.parent.name == "SmartEnemyBullet(Clone)")
             {
-                Destroy(this.transform.parent.gameObject);
                 Player player = other.GetComponent<Player>();
                 if (player != null) player.Damage();
+                Destroy(this.transform.parent.gameObject);
+            }
+        }
+        else if(other.tag == "PowerUp")
+        {
+            if (this.transform.parent.name == "EnemyBullet(Clone)" || this.transform.parent.name == "SmartEnemyBullet(Clone)")
+            {
+                Destroy(other.gameObject);
             }
         }
     }
