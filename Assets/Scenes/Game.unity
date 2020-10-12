@@ -1502,6 +1502,7 @@ MonoBehaviour:
   - {fileID: 2419991795240416249, guid: 519df05f9c3912b4eba90e57a3458c84, type: 3}
   - {fileID: 7029430836651506393, guid: b80e7862776f12640b01c43283ae7653, type: 3}
   - {fileID: 7611801951682841599, guid: c29238c349737da47abe623d81395210, type: 3}
+  - {fileID: 6583389376064272768, guid: 7e8e4ef03f0c2da41bdae4c22b65a723, type: 3}
   _enemyContainer: {fileID: 1761436765}
   _powerUps:
   - {fileID: 7077519033329445632, guid: 541d8df1dbf72724e872a544a0ecda12, type: 3}
@@ -1793,7 +1794,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333437854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.15, y: -1.42, z: 0}
+  m_LocalPosition: {x: -0.08, y: -2.15, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 790733796}
@@ -3268,12 +3269,12 @@ PrefabInstance:
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.26
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.32
+      value: 3.15
       objectReference: {fileID: 0}
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}

@@ -59,6 +59,7 @@
     <Compile Include="Assets\Script\PlayerCircleCollider.cs" />
     <Compile Include="Assets\Script\UIManager.cs" />
     <Compile Include="Assets\Script\Astroid.cs" />
+    <Compile Include="Assets\Script\Missile.cs" />
     <Compile Include="Assets\Script\Shake.cs" />
     <Compile Include="Assets\Script\Mian_Menu\MainMenuUI.cs" />
     <Compile Include="Assets\Script\Bullet.cs" />
@@ -66,7 +67,7 @@
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\SpawnManager.cs" />
-    <Compile Include="Assets\Script\Missile.cs" />
+    <Compile Include="Assets\Helper.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\GameDevHQ\FileBase\Plugin\Filebase.dll" />
