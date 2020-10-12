@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviour
     public int score;
     private UIManager _uIManager;
     private bool _stopSpawn;
-    private float _enemySpeed = 0.2f;
+    private float _enemySpeed = 2f;
     private int _missedEnemies = 0;
 
     private void Start()
@@ -53,7 +53,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         while (!_stopSpawn)
         {
-            int ran = Random.Range(0, 120);
+            int ran = Random.Range(0, 125);
             yield return new WaitForSeconds(Random.Range(6,9));
             var instantiatedPowerUp = Instantiate(_powerUps[PUrarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             instantiatedPowerUp.transform.parent = _powerUpContainer.transform;
@@ -76,7 +76,8 @@ public class SpawnManager : MonoBehaviour
         else if (a < 60 && a > 40) result = 2;
         else if (a < 105 && a > 60) result = 3;
         else if (a < 110 && a > 105) result = 4;
-        else result = 5;
+        else if (a < 120 && a > 105) result = 5;
+        else result = 6;
         return result;
     }
     public void GameOver()
@@ -90,12 +91,12 @@ public class SpawnManager : MonoBehaviour
     {
         _stopSpawn = true;
         var clones = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (var clone in clones) { Destroy(clone); }
+        foreach (var clone in clones)Destroy(clone.gameObject);
     }
 
     public void miss() {
         _missedEnemies++;
-        if (_missedEnemies >= 5)
+        if (_missedEnemies >= 4)
         {
             _uIManager.GameOverAction();
             GameOver();

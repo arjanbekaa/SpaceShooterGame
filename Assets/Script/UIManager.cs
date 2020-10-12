@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 {
 
     [SerializeField]
+    private Text _lunchMissile;
+    [SerializeField]
     private Text _waveText;
     [SerializeField]
     private Text _speedCoolDown;
@@ -34,6 +36,7 @@ public class UIManager : MonoBehaviour
     private GameManager _gameManager;
     private Player _player;
     private bool _clearedTheGame = false;
+    private bool _isMissileReady = false;
 
     private bool _BarHudWait = false;
 
@@ -63,6 +66,7 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + 0;
         _missedEnemies.text = "Enemies Missed : 0";
         _waveText.text = "WAVE: 1 / " + (_player.getWave()+1);
+        _lunchMissile.gameObject.SetActive(_isMissileReady);
     }
     private void Update()
     {
@@ -129,23 +133,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    IEnumerator waitTxt()
-    {
-        yield return new WaitForSeconds(5);
-        _speedCoolDown.text = "GO";
-        _BarHudWait = false;
-    }
-
-    IEnumerator ThrusetBar()
-    {
-        while (_BarHudWait)
-        {
-            CurrentValue += 0.000038f;
-
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
     public void GameOverAction()
     {
         _gameManager.GameOver();
@@ -164,6 +151,27 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void CanLunchMissileText()
+    {
+        _isMissileReady = true;
+        StartCoroutine(MissileFlickerText());
+    }
+    public void StopCanLunchMissileText()
+    {
+        _isMissileReady = false;
+        _lunchMissile.gameObject.SetActive(false);
+    }
+    IEnumerator MissileFlickerText()
+    {
+        while (_isMissileReady)
+        {
+            _lunchMissile.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.5f); 
+            _lunchMissile.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
     IEnumerator FlickerRoutin()
     {
         while(true)
@@ -172,6 +180,22 @@ public class UIManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             _gameOver.gameObject.SetActive(false);
             yield return new WaitForSeconds(0.5f);
+        }
+    }
+    IEnumerator waitTxt()
+    {
+        yield return new WaitForSeconds(5);
+        _speedCoolDown.text = "GO";
+        _BarHudWait = false;
+    }
+
+    IEnumerator ThrusetBar()
+    {
+        while (_BarHudWait)
+        {
+            CurrentValue += 0.000038f;
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

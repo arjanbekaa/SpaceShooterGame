@@ -1510,6 +1510,7 @@ MonoBehaviour:
   - {fileID: 2856901151996767574, guid: 5f25b60986f4a5942b84ca74ce61c9b5, type: 3}
   - {fileID: 5029737296528113052, guid: 02097ed39dd3a1c4b8b83d77287e915f, type: 3}
   - {fileID: 2069006509838159520, guid: 233b0372afefd2f4b9908b2783cb913c, type: 3}
+  - {fileID: 4039536328133798353, guid: 8df959365b72b384baaf68b9a8a39cba, type: 3}
   _powerUpContainer: {fileID: 728088355}
   score: 0
 --- !u!4 &1173856133
@@ -1729,6 +1730,8 @@ MonoBehaviour:
   _rightEngine: {fileID: 816725018}
   _shootAudio: {fileID: 932395103}
   _explosionAudio: {fileID: 1370709777}
+  _missile: {fileID: 5756570699798336785, guid: 362ad58dea865ab4bae26c68e00b4152,
+    type: 3}
   _shieldGO: {fileID: 2088175669}
   _speed: 4
 --- !u!212 &1333437856
@@ -1790,7 +1793,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333437854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2, y: 4.07, z: 0}
+  m_LocalPosition: {x: 1.15, y: -1.42, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 790733796}
@@ -2450,6 +2453,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1751564489}
   m_CullTransparentMesh: 0
+--- !u!1 &1760761017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1760761018}
+  - component: {fileID: 1760761020}
+  - component: {fileID: 1760761019}
+  m_Layer: 5
+  m_Name: Lunch  Missile
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1760761018
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760761017}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1900217140}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 115, y: 70}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1760761019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760761017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.990566, g: 0.010008059, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Lunch  Missile
+--- !u!222 &1760761020
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760761017}
+  m_CullTransparentMesh: 0
 --- !u!1 &1761436765
 GameObject:
   m_ObjectHideFlags: 0
@@ -2778,6 +2860,7 @@ RectTransform:
   - {fileID: 1877288693}
   - {fileID: 1635173724}
   - {fileID: 592350361}
+  - {fileID: 1760761018}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2798,6 +2881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82161528ee622d468dbdca9d8dd9d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lunchMissile: {fileID: 1760761019}
   _waveText: {fileID: 592350362}
   _speedCoolDown: {fileID: 775114312}
   _thrusterBar: {fileID: 1635173725}
@@ -3184,12 +3268,12 @@ PrefabInstance:
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 2.32
       objectReference: {fileID: 0}
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}

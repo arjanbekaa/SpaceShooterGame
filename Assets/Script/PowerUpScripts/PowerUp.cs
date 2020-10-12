@@ -7,7 +7,7 @@ public class PowerUp : MonoBehaviour
     private GameObject _player;
     [SerializeField]
     private AudioClip _powerUpClip;
-    private float _speed = 0.2f;
+    private float _speed = 2f;
     [SerializeField]
     private int _powerUpID;
 
@@ -56,6 +56,9 @@ public class PowerUp : MonoBehaviour
                         break;
                     case 5:
                         player.StartSuperBullet();
+                        break;
+                    case 6:
+                        player.CollectedMissile();
                         break;
                 }
             }

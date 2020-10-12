@@ -21,7 +21,7 @@ public class Astroid : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Bullet")
+        if(collision.name == "Bullet(Clone)")
         {
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             _explosionAudio.GetComponent<AudioSource>().Play();

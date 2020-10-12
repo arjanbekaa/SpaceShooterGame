@@ -26,8 +26,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _explosionAudio;
     [SerializeField]
+    private Missile _missile;
+    [SerializeField]
     private GameObject _shieldGO;
     private SpriteRenderer _shiedlSpriteRenderer;
+    private GameObject[] _enemies;
 
     private Shake _shake;
 
@@ -58,6 +61,8 @@ public class Player : MonoBehaviour
     private int _waveEnemies = 2;
     private int _numberOfWaves = 3;
     private int _wavesFinished = 0;
+
+    private bool _canLunchMissile = false;
     void Start()
     {
         _tripleShotActive = false;
@@ -75,14 +80,10 @@ public class Player : MonoBehaviour
     {
         playerMovement();
         playerBounds();
-        if (_countBulletsShoot >= 15)
-        {
-        }
-        else
-        {
-            shoot();
-            _uIManager.UpdateAmmoTxt(_maxBulletInventory - _countBulletsShoot);
-        }
+        bulletControle();
+        MissalLuncher();
+
+        _enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
     public void playerMovement()
     {
@@ -296,8 +297,53 @@ public class Player : MonoBehaviour
             _spawnManager.GameOver();
         }
     }
+    public void bulletControle()
+    {
 
+        if (_countBulletsShoot >= 15)
+        {
+        }
+        else
+        {
+            shoot();
+            _uIManager.UpdateAmmoTxt(_maxBulletInventory - _countBulletsShoot);
+        }
+    }
 
+    public void CollectedMissile()
+    {
+        _uIManager.CanLunchMissileText();
+        _canLunchMissile = true;
+    }
+    public void MissalLuncher()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && _canLunchMissile)
+        {
+            var target = FindClosestEnemy();
+            if (target == null) return;
+            _missile.LunchMissile(this.transform.position);
+            _canLunchMissile = false;
+            _uIManager.StopCanLunchMissileText();
+        }
+    }
+
+    public GameObject FindClosestEnemy()
+    {
+        GameObject enemiToGo = null;
+        float distance = Mathf.Infinity;
+        Vector3 current = this.transform.position;
+        foreach (var enemy in _enemies)
+        {
+            Vector3 diff = enemy.transform.position - current;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                enemiToGo = enemy;
+                distance = curDistance;
+            }
+        }
+        return enemiToGo;
+    }
     IEnumerator TripleShotRoutin()
     {
         yield return new WaitForSeconds(5);
