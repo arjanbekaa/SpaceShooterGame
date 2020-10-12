@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     private Vector3 _pos;
     private bool _didShoot = false;
     private bool _powerUpShoot = false;
+    private GameObject[] _bullets;
 
     void Start()
     {
@@ -51,6 +52,7 @@ public class Enemy : MonoBehaviour
         SmartEnemy();
         shoot();
         PowerUpShot();
+        DodgeMovement();
     }
     public void shoot()
     {
@@ -80,10 +82,32 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    IEnumerator PowerUpShoot()
+    public void DodgeMovement()
     {
-        yield return new WaitForSeconds(5f);
-        _powerUpShoot = false;
+        if (this.id == 5)
+        {
+            _bullets = GameObject.FindGameObjectsWithTag("Bullet");
+            foreach (var bullet in _bullets)
+            {
+                if (bullet.name == ("Bullet(Clone)"))
+                {
+                    if (this.transform.position.x >= bullet.transform.position.x - 0.7f && this.transform.position.x <= bullet.transform.position.x + 0.7f)
+                    {
+                        Vector3 target;
+                        if (bullet.transform.position.x < this.transform.position.x)
+                        {
+                            target = transform.position + new Vector3(2, 0, 0);
+                        }
+                        else
+                        {
+                            target = transform.position + new Vector3(-2, 0, 0);
+                        }
+                        float step = 1.1f * Time.deltaTime;
+                        transform.position = Vector3.MoveTowards(transform.position, target, step);
+                    }
+                }
+            }
+        }
     }
     public void CalculateMovement()
     {
@@ -197,6 +221,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    IEnumerator PowerUpShoot()
+    {
+        yield return new WaitForSeconds(5f);
+        _powerUpShoot = false;
+    }
     IEnumerator ShootPlayer()
     {
         yield return new WaitForSeconds(5f);

@@ -1503,6 +1503,7 @@ MonoBehaviour:
   - {fileID: 7029430836651506393, guid: b80e7862776f12640b01c43283ae7653, type: 3}
   - {fileID: 7611801951682841599, guid: c29238c349737da47abe623d81395210, type: 3}
   - {fileID: 6583389376064272768, guid: 7e8e4ef03f0c2da41bdae4c22b65a723, type: 3}
+  - {fileID: 4731250414818493692, guid: bfb8a1fa1ab192a43be0508c2e0b23cf, type: 3}
   _enemyContainer: {fileID: 1761436765}
   _powerUps:
   - {fileID: 7077519033329445632, guid: 541d8df1dbf72724e872a544a0ecda12, type: 3}
@@ -3269,12 +3270,12 @@ PrefabInstance:
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01
+      value: -5.78
       objectReference: {fileID: 0}
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.15
+      value: 4.15
       objectReference: {fileID: 0}
     - target: {fileID: 3450393396678403247, guid: 0c3bb1893da7bc54087fae97a32c3ac7,
         type: 3}

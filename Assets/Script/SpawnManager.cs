@@ -41,8 +41,8 @@ public class SpawnManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
         while (!_stopSpawn) {
-            int ran = Random.Range(0, 50);
-            var InstantiatedEnemy = Instantiate(_enemy[4], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
+            int ran = Random.Range(0, 60);
+            var InstantiatedEnemy = Instantiate(_enemy[5], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             InstantiatedEnemy.transform.parent = (_enemyContainer.transform);
         yield return new WaitForSeconds(4);
         }
@@ -66,7 +66,8 @@ public class SpawnManager : MonoBehaviour
         else if (a > 15 && a < 20) result = 1;
         else if (a > 20 && a < 30) result = 2;
         else if (a > 30 && a < 40) result = 3;
-        else result = 4;
+        else if (a > 40 && a < 50) result = 4;
+        else result = 5;
         return result;
     }
     public int PUrarity(int a)
