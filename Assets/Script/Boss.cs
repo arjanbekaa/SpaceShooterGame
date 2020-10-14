@@ -14,6 +14,8 @@ public class Boss : MonoBehaviour
     private GameObject _bullets;
     [SerializeField]
     private GameObject _explositon;
+    [SerializeField]
+    private GameObject _playerExcplosion;
 
     private void Start()
     {
@@ -62,6 +64,14 @@ public class Boss : MonoBehaviour
                 _audioSource.Play();
                 Destroy(_explositon, 2.40f);
             }
+        }
+        if(other.tag == "Player")
+        {
+
+            var explosion = Instantiate(_playerExcplosion, other.transform.position, Quaternion.identity);
+            Player player = other.GetComponent<Player>();
+            Destroy(other.gameObject, 0.19f);
+            Destroy(explosion, 2.40f);
         }
     }
     IEnumerator BossDead()
