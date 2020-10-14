@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-
+    [SerializeField]
+    private Slider _bossHealth;
     [SerializeField]
     private Text _lunchMissile;
     [SerializeField]
@@ -57,15 +58,17 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         CurrentValue = 100f;
+        _bossHealth.gameObject.SetActive(false);
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         if (_gameManager == null) Debug.LogError("Game Manager is null");
+        if (_player == null) Debug.LogError("Player is null");
         _gameOver.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
         _mainMenuBtn.gameObject.SetActive(false);
         _scoreText.text = "Score: " + 0;
         _missedEnemies.text = "Enemies Missed : 0";
-        _waveText.text = "WAVE: 1 / " + (_player.getWave()+1);
+        _waveText.text = "WAVE: 1 / " + (_gameManager.getWave()+1);
         _lunchMissile.gameObject.SetActive(_isMissileReady);
     }
     private void Update()
@@ -75,16 +78,27 @@ public class UIManager : MonoBehaviour
             StartCoroutine(ThrusetBar());
         }
     }
+    public void UpdateBossHealth()
+    {
+        _bossHealth.gameObject.SetActive(true);
+        if (_bossHealth.value == null)
+        {
+            _bossHealth.value = 100f;
+        }
+
+        else _bossHealth.value -= 0.1f;
+    }
     public void UpdateWaveText(int wave)
     {
-        if(wave == _player.getWave())
+        if(wave == _gameManager.getWave() && _gameManager.getIsBosDead())
         {
             _clearedTheGame = true;
             GameOverAction();
         }
         else
         {
-            _waveText.text = "WAVE: " + (++wave) + " / " + _player.getWave();
+            int a = _gameManager.getWave() + 1;
+            _waveText.text = "WAVE: " + (++wave) + " / " + a;
         }
     }
     public void UpdateMissedEnemies(int missedEnemies)
@@ -101,8 +115,8 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateLives(int currentLives)
     {
-        _lifeDisplay.sprite = _livesImage[currentLives];
         if (currentLives < 0) currentLives = 0;
+        _lifeDisplay.sprite = _livesImage[currentLives];
         if (currentLives == 0)
         {
             GameOverAction();

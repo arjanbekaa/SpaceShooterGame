@@ -23,6 +23,7 @@ public class Astroid : MonoBehaviour
     {
         if(collision.name == "Bullet(Clone)")
         {
+            _spawnManager.SpawnAmmo();
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             _explosionAudio.GetComponent<AudioSource>().Play();
             _spawnManager.StartSpawning();

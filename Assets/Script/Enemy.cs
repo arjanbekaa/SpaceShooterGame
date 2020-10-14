@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     private GameObject [] _powerUps;
     private AudioSource _audioSource;
     private SpawnManager _spawnManager;
+    private GameManager _gameManager;
     private Player _player;
     private bool _isDestroyed = false;
     private float _fireRate = 3.0f;
@@ -37,9 +38,11 @@ public class Enemy : MonoBehaviour
         EnemyCheck();
         _powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = this.GetComponent<AudioSource>();
         if (_audioSource == null) Debug.LogError("Audio Source is null");
+        if (_gameManager == null) Debug.LogError("Game Manager is null");
         if (_powerUps == null) Debug.LogError("Power Up is null");
         if (_shield == null) Debug.LogError("Not an Enemy with a Shield");
         if (_spawnManager == null) Debug.LogError("Spawn Manager is null");
@@ -150,7 +153,7 @@ public class Enemy : MonoBehaviour
         //If the player tuches the enemy even with a shield the enemy will die imidiatly;
         if (other.tag == "Player")
         {
-            _player.WaveFinished();
+            _gameManager.WaveFinished();
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             Player player = other.GetComponent<Player>();
             if (player != null) player.Damage();
@@ -168,7 +171,7 @@ public class Enemy : MonoBehaviour
                 return;
             }
 
-            _player.WaveFinished();
+            _gameManager.WaveFinished();
             var explosion = Instantiate(_explositon, this.transform.position, Quaternion.identity);
             _isDestroyed = true;
             _player.AddSpeed();

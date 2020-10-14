@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     public void Movement()
     {
-        if (this.transform.parent.name == "EnemyBullet(Clone)")
+        if (this.transform.parent.name == "EnemyBullet(Clone)" || this.transform.parent.name == "BossBullets(Clone)")
         {
             this.transform.Translate(Vector3.down * _bulletSpeed * Time.deltaTime);
         }
@@ -34,17 +34,17 @@ public class Bullet : MonoBehaviour
     {
         if (this.transform.position.y >= 8f)
         {
-            if (this.transform.parent != null && transform.parent.name == "TripleShot(Clone)") Destroy(this.transform.parent.gameObject);
+            if (transform.parent.name == "TripleShot(Clone)") Destroy(this.transform.parent.gameObject);
             Destroy(this.gameObject);
         }
         if (this.transform.position.y <= -7f)
         {
-            if (this.transform.parent != null && transform.parent.name == "EnemyBullet(Clone)") Destroy(this.transform.parent.gameObject);
+            if (transform.parent.name == "EnemyBullet(Clone)" || this.transform.parent.name == "BossBullets(Clone)") Destroy(this.transform.parent.gameObject);
             Destroy(this.gameObject);
         }
         if (this.transform.position.x <= -11f || this.transform.position.x >= 11f)
         {
-            if (this.transform.parent != null && transform.parent.name == "SuperBullet(Clone)") Destroy(this.transform.parent.gameObject);
+            if (transform.parent.name == "SuperBullet(Clone)") Destroy(this.transform.parent.gameObject);
             Destroy(this.gameObject);
         }
     }
@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (this.transform.parent.name == "EnemyBullet(Clone)" || this.transform.parent.name == "SmartEnemyBullet(Clone)")
+            if (this.transform.parent.name == "EnemyBullet(Clone)" || this.transform.parent.name == "SmartEnemyBullet(Clone)" || this.transform.parent.name == "BossBullets(Clone)")
             {
                 Player player = other.GetComponent<Player>();
                 if (player != null) player.Damage();

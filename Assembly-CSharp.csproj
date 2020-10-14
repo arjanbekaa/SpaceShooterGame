@@ -66,8 +66,11 @@
     <Compile Include="Assets\Script\PowerUpScripts\PowerUp.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
+    <Compile Include="Assets\Script\EnemyBoss.cs" />
     <Compile Include="Assets\Script\SpawnManager.cs" />
-    <Compile Include="Assets\Helper.cs" />
+    <Compile Include="Assets\Script\Helper.cs" />
+    <Compile Include="Assets\Script\Boss.cs" />
+    <Compile Include="Assets\Script\BossHelper.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\GameDevHQ\FileBase\Plugin\Filebase.dll" />

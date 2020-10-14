@@ -6,6 +6,8 @@ using UnityEngine.PlayerLoop;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject _boss;
+    [SerializeField]
     private GameObject _astroid;
     [SerializeField]
     private GameObject [] _enemy;
@@ -19,30 +21,54 @@ public class SpawnManager : MonoBehaviour
     public int score;
     private UIManager _uIManager;
     private bool _stopSpawn;
+    private bool _stopSpawningPowerUps;
     private float _enemySpeed = 2f;
     private int _missedEnemies = 0;
+    private GameManager _gameManager;
+    private int _countAst = 1;
 
     private void Start()
     {
         _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (_gameManager == null) Debug.LogError("Game Manager is null");
     }
     public void StartSpawning()
     {
         _stopSpawn = false;
+        _stopSpawningPowerUps = false;
         StartCoroutine(EnemySpawnRoutine());
         StartCoroutine(PowerUpSpawnRoutine());
     }
     public void StopSpawning()
     {
         _stopSpawn = true;
-        var InstantiatedEnemy = Instantiate(_astroid, new Vector3(0, 3, 0), Quaternion.identity);
+        _stopSpawningPowerUps = true;
+        if (_countAst < _gameManager.getWave()){
+            _countAst++;
+            var InstantiatedEnemy = Instantiate(_astroid, new Vector3(0, 3, 0), Quaternion.identity);
+        }
+        else
+        {
+            _stopSpawningPowerUps = false;
+            var InstantiatedEnemy = Instantiate(_boss, new Vector3(0, 8, 0), Quaternion.identity);
+        }
+
+    }
+    public void stopPu()
+    {
+        _stopSpawningPowerUps = true;
+    }
+    public void SpawnAmmo()
+    {
+        var instantiatedPowerUp = Instantiate(_powerUps[3], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
     }
     IEnumerator EnemySpawnRoutine()
     {
         yield return new WaitForSeconds(2.0f);
         while (!_stopSpawn) {
             int ran = Random.Range(0, 60);
-            var InstantiatedEnemy = Instantiate(_enemy[5], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
+            var InstantiatedEnemy = Instantiate(_enemy[EnemyRarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             InstantiatedEnemy.transform.parent = (_enemyContainer.transform);
         yield return new WaitForSeconds(4);
         }
@@ -51,10 +77,10 @@ public class SpawnManager : MonoBehaviour
     IEnumerator PowerUpSpawnRoutine()
     {
         yield return new WaitForSeconds(2.0f);
-        while (!_stopSpawn)
+        while (!_stopSpawningPowerUps)
         {
             int ran = Random.Range(0, 125);
-            yield return new WaitForSeconds(Random.Range(6,9));
+            yield return new WaitForSeconds(Random.Range(5,8));
             var instantiatedPowerUp = Instantiate(_powerUps[PUrarity(ran)], new Vector3(Random.Range(-9.30f, 9.30f), 8, 0), Quaternion.identity);
             instantiatedPowerUp.transform.parent = _powerUpContainer.transform;
         }
